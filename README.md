@@ -6,4 +6,4 @@
 + Поднятие сервера при помощи esp
 
 Схема работы:
-Данные с датчика (сенсора) -> esp8266 -> mySerial -> arduino -> mqtt_pub -> mqtt_sub -> serial -> esp8266 -> serial -> пользователь
+Данные с датчика (сенсора) -> esp8266 -> mySerial -> arduino -> mqtt_pub -> mqtt_sub -> serial -> esp8266 -> serial -> лампочка
