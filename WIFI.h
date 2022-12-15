@@ -2,10 +2,11 @@
 #include <ESP8266WiFiMulti.h>
 
 String ip = "IP unset";
-String password = "148869420";
-String ssid_pref = "FanatNaruto";
 
-String passwordCLI = "148869420";
+String password = "12341234"; // Для режима: Access point (точка доступа) (phone (or another device) -> esp8266)
+String ssid_pref = "BASE";
+
+String passwordCLI = "148869420"; // Для режима: STA (esp8266 -> router)
 String ssidCLI = "L";
 
 ESP8266WiFiMulti wifiClient;

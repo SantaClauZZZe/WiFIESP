@@ -1,4 +1,4 @@
-#include <SoftwareSerial.h>
+#include <SoftwareSerial.h> // EspSoftwareSerial
 
 #include "WIFI.h"
 #include "server.h"
@@ -13,7 +13,7 @@ extern bool flag;
 long duration, cm;
 int s;
 
-SoftwareSerial mySerial(9, 10);
+SoftwareSerial mySerial(14, 16); // RX — receive (принимаю), TX — transmit (передаю)
 
 void setup()
 {
@@ -39,7 +39,7 @@ void loop()
 
   if (flag)   // Измерение расстояния  с датчика
   {
-    digitalWrite(PIN_TRIG, LOW);
+    digitalWrite(PIN_TRIG, LOW);   // Начало измерения расстояния
     delayMicroseconds(5);
 
     digitalWrite(PIN_TRIG, HIGH);
@@ -49,24 +49,26 @@ void loop()
 
     duration = pulseIn(PIN_ECHO, HIGH);
 
-    cm = (duration / 2) / 29.1;
+    cm = (duration / 2) / 29.1;   // Результат измерений
     
-    String ans = "1" + String(cm);
+    Serial.println("Distance -> " + String(cm));   // Отладочная инфа
 
-    Serial.println(ans);
+    mySerial.println("1" + String(cm));   // Посылаем результат на ардуино (первая цифра означает вид измерения: 1 -> расстояние)
 
     delay(250);
   } 
   else  // Иначе измеренеие уровня освещённости
   {
-    int value = analogRead(ANALOG_PIN);
+    int value = analogRead(ANALOG_PIN);   // измеренеие уровня освещённости
 
-    Serial.println("0" + String(value));
+    Serial.println("Brightness -> " + String(value));   // Отладочная инфа
+    
+    mySerial.println("0" + String(value));   // Посылаем результат на ардуино (первая цифра означает вид измерения: 0 -> уровень освещённости)
     
     delay(250);
   }
 
-  while (Serial.available())
+  while (Serial.available())   // Прием данных с порта (MQTT-python -> esp8266)
   {
     s = Serial.read();
   }

@@ -5,8 +5,8 @@ import time
 
 UNIQUE_ID = 999
 
-port = "COM9"
-ser = serial.Serial(port, "9600")
+port = "COM5"
+ser = serial.Serial(port, "9600")    # Подключение к ардуино
 
 def on_message(client, data,message):
     data = int(message.payload.decode("utf-8"))
@@ -19,7 +19,7 @@ def on_message(client, data,message):
             ser.write("1".encode())
         else:
             ser.write("0".encode())
-    if("/length" in topic):
+    if ("/length" in topic):
         if (data == 1):
             ser.write("1".encode())
         else:
